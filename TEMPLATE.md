@@ -5,10 +5,10 @@ ${This is what the project is about}
 ${This is why I made the project}
 
 ## Table of Contents
-    - [Installation](#installation)
-    - [Instructions for Use](#instructions-for-use)
-    - [Credits](#credits)
-    - [License](#license)
+    * [Installation](#installation)
+    * [Instructions for Use](#instructions-for-use)
+    * [Credits](#credits)
+    * [License](#license)
 
 ## Installation
     1. Before running this app, please have the following information on hand and / or loaded into your 'asset/images' folder:
