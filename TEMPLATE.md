@@ -1,4 +1,4 @@
-#${Title}#
+#$\{Title\}#
 
 ${This is what the project is about}
 
@@ -18,7 +18,7 @@ ${This is why I made the project}
     3. ${install instruction}
 
 ##Instructions for Use##
-    1. ${use instruction}
+    1. $\{use instruction\}
        - [${screenshot name}](${screenshot link})
     2. ${second use instruction}
        - [${second screenshot name}](${second screenshot link})
