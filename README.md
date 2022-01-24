@@ -26,7 +26,7 @@ readme
 <figure>
     <img alt='screenshot' src='./assets/images/avatar_nile.png' width='200px'>
     <figcaption>Screenshot</figcaption>
-</figure> 
+</figure> <br>
 3. then do this <br>
 4. then do this <br>
 5. lastly, do this one thing <br>
