@@ -11,8 +11,14 @@ readme
 * [License](#license)
     
 ## Installation
-1. These programs need to be installed befur attempting to run the program:
-- node<br>,- inquirer<br>
+<ol>
+    <li>These programs need to be installed befur attempting to run the program:</li>
+    <ul>
+        <li>- node</li>
+        <li>- inquirer</li>
+    </ul>
+</ol>
+
 2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:
 - this one<br>- that one<br>- the other one<br>
 
