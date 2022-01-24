@@ -24,4 +24,4 @@ readme
     </ul>
 
 ## Instructions for Use
-<ol><li>do this first</li><img src="./assets/images/avatar_nile.png" title="me"><li>this second</li><li>this last</li>
+<ol><li>do this first</li><img src="./assets/images/avatar_nile.png" width="200px" title="me"><li>this second</li><li>this last</li>
