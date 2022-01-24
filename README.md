@@ -18,7 +18,7 @@ This makes it easy to turn out basic READMEs without having to re-write the form
 
 ## Instructions for Use
 After cloning the repo, opening it in their code editor, openning the integrated terminal, and installing inquirer, the user needs to simply run the program with the command 'node index.js', answer the questions, then move the generated README.md file to the folder of their program's repo.
-   - [screenshot]('././assets/images/HTML.op.png')
+   - [screenshot]('../assets/images/HTML.op.png')
 
 Here is a video overview of how to use the app: [my_readme_gen](https://drive.google.com/file/d/1sjyWGV4-m1sxlEh5_PL5DjmNXSEW6Rys/view?usp=sharing)
 
