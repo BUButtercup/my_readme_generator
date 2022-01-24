@@ -26,10 +26,7 @@ readme
 <figure>
     <img alt='screenshot' src='./assets/images/avatar_nile.png' width='200px'>
     <figcaption>Screenshot</figcaption>
-</figure>
-
-
-
-3. then do this
-4. then do this
-5. lastly, do this one thing
+</figure>\n
+3. then do this\n
+4. then do this\n
+5. lastly, do this one thing\n
