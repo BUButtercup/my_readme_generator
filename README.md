@@ -23,6 +23,7 @@ readme
 
 ## Instructions for Use
 1. first do this
-2. then do this
+<img alt='screenshot' src="
 3. then do this
-4. lastly, do this one thing
+4. then do this
+5. lastly, do this one thing
