@@ -12,18 +12,9 @@ readme
     
 ## Installation
 1. These programs need to be installed befur attempting to run the program:
-- node
-- npm inquirer
-
+- node<br>,- inquirer<br>
 2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:
-- this
-- that
-- the other
-
+- this one<br>,- that one<br>,- the other one<br>
 
 ## Instructions for Use
-1. first do this
-   - <img alt='screenshot' src='./assets/images/avatar_nile.png' width='200px' title="screen shot"><br>
-3. then do this <br>
-4. then do this <br>
-5. lastly, do this one thing <br>
+1. do this first<br>,2. this second<br>,3. this last<br>
