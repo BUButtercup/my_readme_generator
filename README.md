@@ -24,4 +24,4 @@ readme
     </ul>
 
 ## Instructions for Use
-1. do this first<br>2. this second<br>3. this last<br>
+<ol><li>do this first</li><li>this second</li><li>this last</li>
