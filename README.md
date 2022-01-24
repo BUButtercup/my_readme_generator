@@ -25,7 +25,5 @@ readme
 1. first do this
 <img alt='screenshot' src='./assets/images/avatar_nile.png' width='200px'>
 3. then do this
-
-5. then do this
-
-7. lastly, do this one thing
+4. then do this
+5. lastly, do this one thing
