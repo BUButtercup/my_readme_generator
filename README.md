@@ -23,10 +23,8 @@ readme
 
 ## Instructions for Use
 1. first do this
-<figure>
     <img alt='screenshot' src='./assets/images/avatar_nile.png' width='200px'>
-    <figcaption>Screenshot</figcaption>
-</figure> <br>
+<br>
 3. then do this <br>
 4. then do this <br>
 5. lastly, do this one thing <br>
