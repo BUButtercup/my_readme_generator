@@ -23,7 +23,7 @@ After cloning the repo, opening it in their code editor, openning the integrated
 Here is a video overview of how to use the app: [my_readme_gen]('https://drive.google.com/file/d/1sjyWGV4-m1sxlEh5_PL5DjmNXSEW6Rys/view?usp=sharing')
 
 ## Credits
-- @[BUButtercup]('https://github.com/BUButtercup'):
+- [@BUButtercup]('https://github.com/BUButtercup'):
   - Wrote the program
 
 
