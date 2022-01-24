@@ -99,37 +99,38 @@ inquirer.prompt([
     const aeLink = ans.aeLink;
     const aeCont = ans.aeCont;
     const license = ans.license;
-    const writeREADME = `# ${title}
+    const writeREADME = 
+`# ${title}
 
-    ${desc}
+${desc}
     
-    ${problem}
-    
-    ## Table of Contents
-    * [Installation](#installation)
-    * [Instructions for Use](#instructions-for-use)
-    * [Credits](#credits)
-    * [License](#license)
-    
-    ## Installation
-    1. Before running this app, please have the following information on hand and / or loaded into your 'asset/images' folder:
-       - ${neededInfo}
-    2. You will need the following npm packages installed:
-       - ${installInst}
-    
-    ## Instructions for Use
-    ${useInst}
-       - [${ssAltText}](${ssLink})
+${problem}
 
-    Here is a video overview of how to use the app: [${title}](${videoLink})
+## Table of Contents
+* [Installation](#installation)
+* [Instructions for Use](#instructions-for-use)
+* [Credits](#credits)
+* [License](#license)
     
-    ## Credits
-    - @[${aeName}](${aeLink}):
-      - ${aeCont}
-    
-    
-    ## License
-    The files in this repository are covered by the ${license} license.`
+## Installation
+1. After cloning the repos to your machine, opening it in your editor, and opening your integrated terminal window, you will need the following npm packages installed:
+   - ${installInst}
+2. Before running this app, please have the following information on hand and / or loaded into your 'asset/images' folder:
+   - ${neededInfo}
+
+## Instructions for Use
+${useInst}
+    - Here's a screenshot(s) of the program: [${ssAltText}](${ssLink})
+
+    - Here's a video overview of how to use the app: [${title}](${videoLink})
+
+## Credits
+- @[${aeName}](${aeLink}):
+    - ${aeCont}
+
+
+## License
+The files in this repository are covered by the ${license} license.`
 
     fs.writeFile('README.md', writeREADME, err => {
         if (err) {
