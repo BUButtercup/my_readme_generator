@@ -17,7 +17,7 @@ readme
 <ul></ul>
 
 ## Instructions for Use
-<ol><li>first <strong><em>do this</em></strong></li><li>next *do that*.</li><img src="./assets/images/avatar_nile.png" alt="alt" title="my avatar" width="200px"><li>last, ~~don't do this~~</li><li>Let's try to <a href="google.com">add a link in flow</a>.</li></ol>
+<ol><li>first <strong><em>do this</em></strong></li><li>next *do that*.</li><img src="./assets/images/avatar_nile.png" alt="alt" title="my avatar" width="200px"><li>last, ~~don't do this~~</li><li>Let's try to <a href="www.google.com">add a link in flow</a>.</li></ol>
 
 
 
