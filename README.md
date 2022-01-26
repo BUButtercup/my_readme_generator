@@ -17,7 +17,7 @@ readme
 <ul>none</ul>
 
 ## Instructions for Use
-<ol>undefined</ol>
+<ol><li>step one</li><li>step two</li></ol>
 
 
 
