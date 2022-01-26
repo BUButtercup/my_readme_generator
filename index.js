@@ -2,10 +2,24 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const funct = require('./fun-ctions')
 
-inquirer.prompt([
+
+let neededProgs = [];
+let assetsNeeded = [];
+let answer;
+let title;
+let desc;
+let problem;
+let instForUse;
+
+let instNum = 0;
+const instructions = [];
+const instLIs = [];
+
+
+const questions = [
     {
         type: 'input',
-        message: 'What is the title of your program?',
+        message: 'Let\'s build you a REAME.md! \n First, what is the title of your program?',
         name: 'title'
     },
     {
@@ -22,12 +36,12 @@ inquirer.prompt([
     //install
     {
         type: 'confirm',
-        message: 'Are there additional programs that the user needs to have installed to run your app?',
+        message: 'Are there additional supporting programs (e.g. npm dependencies) that the user needs to have installed to run your program?',
         name:'progNeeded',
     },
     {
         type: 'input',
-        message: 'Please write comma-separated list of programs needed:',
+        message: 'Please write a COMMA-SEPARATED list of the programs needed:',
         name:'progNeeded.items',
         when(answers){
             return answers.progNeeded === true;
@@ -35,7 +49,6 @@ inquirer.prompt([
         filter(answers){
             return answers.split(/[,]/)
         },
-    
     },
     {
         type: 'confirm',
@@ -44,7 +57,7 @@ inquirer.prompt([
     },
     {
         type: 'input',
-        message: 'Please write comma-separated list of assets needed:',
+        message: 'Please write a COMMA-SEPARATED list of the assets / information needed:',
         name: 'neededAssets.items',
         when(answers){
             return answers.neededAssets === true;
@@ -52,126 +65,60 @@ inquirer.prompt([
         filter(answers){
             return answers.split(/[,]/);
         }
-    },
+    }]
 
-    //use instructions
-    {
-        type: 'input',
-        message: 'Please enter instructions for use. Separate steps with \';\':',
-        name: 'useInst',
-        filter(answers){
-            return answers.split(/[;]/);
-        }
-    },
-    {
-        type: 'confirm',
-        message: 'Would you like to link screenshots?',
-        name: 'wantSS'
-    },
-    {
-        type: 'list',
-        message: 'How would you like to link your screenshots?',
-        choices: ['link to image in assets folder', 'insert image into README'],
-        name: 'wantSS.how',
-        when(answers){
-            return answers.wantSS === true;
-        }
-    },
-        {
-        type: 'input',
-        message: 'Enter screen shot alt text:',
-        name: 'wantsSS.altText',
-        when(answers){
-            return answers.wantSS === true;
-        }
-    },
-    {
-        type: 'input',
-        message: 'Please enter the relative file path:',
-        name: 'wantSS.how.path',
-        when(answers){
-            return answers.wantSS === true;
-        }
-    },
 
-    // {
-    //     type: 'input',
-    //     message: 'Enter screen shot alt text:',
-    //     name: 'ssAltText'
-    // },
-    // {
-    //     type: 'input',
-    //     message: 'Enter screen shot link:',
-    //     name: 'ssLink'
-    // },
-    // {
-    //     type: 'confirm',
-    //     message: 'Would you like to link a video walkthrough?',
-    //     name: 'video'
-    // },
-    // {
-    //     type: 'input',
-    //     message: 'Please add video link:',
-    //     name: 'videoLink'
-    // },
+const instQuestions = [{
+    type: 'input',
+    message: 'Please enter the next instruction step:',
+    name: 'nextInst',
+},
+{
+    type: 'confirm',
+    message: 'Would you like to link a screenshot to this step?',
+    name: 'wantSS',
+},
+{
+    type: 'list',
+    message: 'How would you like to link your screenshots?',
+    choices: ['link to image in assets folder', 'insert image into README'],
+    name: 'image.how',
+    when(instAns){
+        return instAns.wantSS === true;
+    }
+},
+{
+    type: 'input',
+    message: 'Please enter the relative file path or link to image:',
+    name: 'image.src',
+    when(instAns){
+        return instAns.wantSS === true;
+    }
+},
+{
+    type: 'input',
+    message: 'Enter screen shot alt text:',
+    name: 'image.alt',
+    when(instAns){
+        return instAns.wantSS === true;
+    }
+},
+{
+    type: 'input',
+    message: 'Enter screen shot title:',
+    name: 'image.imgTitle',
+    when(instAns){
+        return instAns.wantSS === true;
+    }
+},
+{
+    type: 'confirm',
+    message: `Would you like to enter another step?`,
+    name: 'wantNextInst',
+}];
 
-    //credits
-    // {
-    //     type: 'confirm',
-    //     message: 'Did you work with anyone else or use additional \n resources in this project?',
-    //     name: 'anyoneElse'
-    // },
-    // {
-    //     type: 'input',
-    //     message: 'Please provide the name:',
-    //     name: 'aeName'
-    // },
-    // {
-    //     type: 'input',
-    //     message: 'Please provide the link:',
-    //     name: 'aeLink'
-    // },
-    // {
-    //     type: 'input',
-    //     message: 'What did they do / what did you use from the resource?',
-    //     name: 'aeCont'
-    // },
-
-    //license
-    // {
-    //     type: 'list',
-    //     message: 'Which license would you like to add?',
-    //     choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'],
-    //     name: 'license'
-    // },
-
-]).then(ans => {
-    console.log(ans);
-
-    let neededProgs = [];
-    funct.generateUList(ans.progNeeded.items, neededProgs);
-
-    let assetsNeeded = [];
-    funct.generateUList(ans.neededAssets.items, assetsNeeded);
-
-    let instForUse = [];
-    funct.generateOList(ans.useInst, instForUse);
-
-    console.log(ans.wantSS);
-    const title = ans.title;
-    const desc = ans.desc;
-    const problem = ans.problem;
-//     const neededInfo = ans.neededInfo;
-//     const installInst = ans.installInst;
-//     const useInst = ans.useInst;
-//     const ssAltText = ans.ssAltText;
-//     const ssLink = ans.ssLink;
-//     const videoLink = ans.videoLink;
-//     const aeName = ans.aeName;
-//     const aeLink = ans.aeLink;
-//     const aeCont = ans.aeCont;
-//     const license = ans.license;
-   const writeREADME = 
+const writeFile = () => {
+    const writeREADME = 
 `# ${title}
 
 ${desc}
@@ -185,30 +132,104 @@ ${problem}
 * [License](#license)
     
 ## Installation
-1. These programs need to be installed befur attempting to run the program:
-${neededProgs}
+1. This program requires the following programs be installed:
+<ul>${neededProgs}</ul>
 2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:
-${assetsNeeded}
+<ul>${assetsNeeded}</ul>
 
 ## Instructions for Use
-${instForUse}`
+<ol>${instForUse}</ol>
 
 
-//     - Here's a screenshot(s) of the program: [${ssAltText}](${ssLink})
+    - Here's a screenshot(s) of the program: [${ssAltText}](${ssLink})
 
-//     - Here's a video overview of how to use the app: [${title}](${videoLink})
+    - Here's a video overview of how to use the app: [${title}](${videoLink})
 
-// ## Credits
-// - @[${aeName}](${aeLink}):
-//     - ${aeCont}
+## Credits
+- @[${aeName}](${aeLink}):
+    - ${aeCont}
 
 
-// ## License
-// The files in this repository are covered by the ${license} license.
+## License
+The files in this repository are covered by the ${license} license.`
 
     fs.writeFile('README.md', writeREADME, err => {
         if (err) {
             throw err;
         }
     });
-});
+ }
+
+ function buildInst(instAns){
+    if (instAns.wantSS === false){
+        const newInst  = new funct.InstructionNoImg(instNum, instAns.nextInst, instAns.wantSS)
+        console.log(newInst);
+        instructions.push(newInst);
+        return instNum++
+    }
+    if (instAns.wantSS === true){
+        const newInst  = new funct.InstructionWImg(instNum, instAns.nextInst, instAns.wantSS, instAns.image.how, instAns.image.src, instAns.image.alt, instAns.image.imgTitle);
+        console.log(newInst);
+        instructions.push(newInst);
+        return instNum++
+    }
+};
+
+async function getNextInst(){
+    for(let i=0; i<20; i++){
+        let wantAnother;
+        console.log(`You have entered ${instNum} steps.`);
+        await inquirer.prompt(instQuestions).then(newInstAns => {
+            wantAnother = newInstAns.wantNextInst
+            buildInst(newInstAns);
+            // if (newInstAns.wantNextInst===true)(getNextInst());
+        })
+        if (wantAnother===false){
+            funct.displayInst(instructions, instLIs);
+            console.log(instLIs);
+            instForUse = instLIs.join('');
+            console.log(instForUse);
+            writeFile();
+            break
+        };
+    }
+}
+
+async function getInst(){
+    const answer = await inquirer.prompt ({type: 'input', message: 'We will now collect the instructions to use your program. This will return an ordered list. Press enter to begin.', name: 'useInst1'})
+    if (answer.useInst1 === ''){
+        inquirer.prompt(instQuestions).then(instAns => {
+            buildInst(instAns);
+            if (instAns.wantNextInst === true){
+                getNextInst();
+            } else {return}
+        });
+    }
+}
+
+function startAsking(){
+    inquirer
+        .prompt(questions).then(ans => {
+        // console.log(ans);
+
+        funct.generateList(ans.progNeeded.items, neededProgs);
+        neededProgs = neededProgs.join('');
+        // console.log(neededProgs)
+
+        funct.generateList(ans.neededAssets.items, assetsNeeded);
+        assetsNeeded = assetsNeeded.join('');
+
+        answer = ans;
+        title = ans.title;
+        desc = ans.desc;
+        problem = ans.problem;
+
+        getInst()
+    })
+}
+
+
+
+ startAsking()
+
+

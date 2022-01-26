@@ -11,19 +11,10 @@ readme
 * [License](#license)
     
 ## Installation
-1. These programs need to be installed befur attempting to run the program:
-- node
-- npm inquirer
-
+1. This program requires the following programs be installed:
+<ul><li>one</li><li>two</li></ul>
 2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:
-- this
-- that
-- the other
-
+<ul><li>one</li><li>two</li></ul>
 
 ## Instructions for Use
-1. first do this
-<img alt='screenshot' src="
-3. then do this
-4. then do this
-5. lastly, do this one thing
+<ol><li>one</li><li>two</li></ol>
