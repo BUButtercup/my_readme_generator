@@ -11,8 +11,8 @@ readm
 * [License](#license)
     
 ## Installation
-1. This program requires the following programs be installed:\n <ul>none</ul>
-2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder: \n <ul>none</ul>
+1. This program requires the following programs be installed: <ul>none</ul>
+2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:  <ul>none</ul>
 
 ## Instructions for Use
 <ol><li>step one</li></ol>
