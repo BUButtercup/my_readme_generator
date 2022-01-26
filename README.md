@@ -1,6 +1,6 @@
 # readme
 
-*readme*
+readme
     
 readme
 
@@ -12,12 +12,12 @@ readme
     
 ## Installation
 1. This program requires the following programs be installed:
-<ul></ul>
+<ul><li>one</li><li>two</li></ul>
 2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:
-<ul></ul>
+<ul><li>two</li><li>one</li></ul>
 
 ## Instructions for Use
-<ol><li>first <strong><em>do this</em></strong></li><li>next <sub>do that</sub>.</li><img src="./assets/images/avatar_nile.png" alt="alt" title="my avatar" width="200px"><li>last, ~~don't do this~~</li><li>Let's try to <a href="https://www.google.com">add a link in flow</a>.</li></ol>
+<ol><li>step one's nice.</li><li>step two's nicer.</li><img src="./assets/images/avatar_nile.png" alt="me" title="me" width="200px"><li><a href="./assets/images/avatar_nile.png">step three's the best one.</a></li></ol>
 
 
 
