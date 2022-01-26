@@ -59,8 +59,13 @@ function displayInst(fromArr, toArr){
         } else if (fromArr[i].wantSS === true){
             console.log('image!');
             let listItem = fromArr[i].text;
-            const newLI = `<li>${listItem}</li>${buildImage(fromArr[i].alt,fromArr[i].src, fromArr[i].title)}`;
-            toArr.push(newLI);
+            if(fromArr[i].how === 'insert image into README'){
+                const newLI = `<li>${listItem}</li>${buildImage(fromArr[i].alt,fromArr[i].src, fromArr[i].title)}`;
+                toArr.push(newLI);
+            } else {
+                const newLI = `<li>${listItem}: <a href="${fromArr[i].src}">${fromArr[i].title}</a></li>`;
+                toArr.push(newLI);
+            }
         }
     }
 }

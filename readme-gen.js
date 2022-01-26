@@ -11,6 +11,7 @@ let desc;
 let problem;
 let instForUse;
 let videoSec;
+let creditLT = `* [Credits](#credits)`
 let creditSec = `## Credits \n`;
 let credits = [];
 let license;
@@ -23,8 +24,9 @@ const instLIs = [];
 const questions = [
     {
         type: 'input',
-        message: 'Let\'s build you a REAME.md! \n First, what is the title of your program?',
-        name: 'title'
+        message: 'Let\'s build you a README.md! \n First, what is the title of your program?',
+        name: 'title',
+        default: 'My Program'
     },
     {
         type: 'input',
@@ -42,10 +44,11 @@ const questions = [
         type: 'confirm',
         message: 'Are there additional supporting programs (e.g. npm dependencies) \n that the user needs to have installed to run your program?',
         name:'progNeeded',
+        default: false
     },
     {
         type: 'input',
-        message: 'Please write a COMMA-SEPARATED list of the programs needed:',
+        message: 'Please write a COMMA-SEPARATED list of the programs needed. This will return an unordered list:',
         name:'progNeeded.items',
         when(answers){
             return answers.progNeeded === true;
@@ -57,11 +60,12 @@ const questions = [
     {
         type: 'confirm',
         message: 'Does the user need to have any assets / information \n available or in the repo folder before using this program?',
-        name: 'neededAssets'
+        name: 'neededAssets',
+        default: false
     },
     {
         type: 'input',
-        message: 'Please write a COMMA-SEPARATED list of the assets / information needed:',
+        message: 'Please write a COMMA-SEPARATED list of the assets / information needed. This will return an unordered list:',
         name: 'neededAssets.items',
         when(answers){
             return answers.neededAssets === true;
@@ -81,11 +85,12 @@ const instQuestions = [{
     type: 'confirm',
     message: 'Would you like to link a screenshot to this step?',
     name: 'wantSS',
+    default: false
 },
 {
     type: 'list',
     message: 'How would you like to link your screenshots?',
-    choices: ['link to image in assets folder', 'insert image into README'],
+    choices: ['insert image into README', 'link to image in assets folder'],
     name: 'image.how',
     when(instAns){
         return instAns.wantSS === true;
@@ -154,7 +159,8 @@ const creditsQuestions = [{
     {
         type: 'confirm',
         message: 'Do you want to give credit to anyone / anything else?',
-        name: 'credit.additional'
+        name: 'credit.additional',
+        default: false
 }]
 
 const writeFile = () => {
@@ -168,7 +174,7 @@ ${problem}
 ## Table of Contents
 * [Installation](#installation)
 * [Instructions for Use](#instructions-for-use)
-* [Credits](#credits)
+${creditLT}
 * [License](#license)
     
 ## Installation
@@ -253,16 +259,31 @@ async function getCredits(){
     } else {
         creditSec = '';
         credits = '';
+        creditLT = '';
         wantLicense()}
     
 }
 
 async function buildVideoLink(){
     await inquirer.prompt(videoQuestions).then(ans =>{
-    videoSec = `Here is a [video walkthrough](${ans.videoLink}).`
+        if(ans.videoLink === ''){
+            console.log('You didn\'t add your link. Please add it to the finished file inside the parentheses.');
+            videoSec = `Here is a [video walkthrough](PUTYOURLINKHERE).`;
+        }
+        videoSec = `Here is a [video walkthrough](${ans.videoLink}).`
     });
     console.log(videoSec);
     getCredits();
+}
+
+async function wantVideo(){
+    const vidAnswer = await inquirer.prompt({type: 'confirm', message: 'Would you like to add a video walkthrough?', name: 'wantVid'});
+    if(vidAnswer.wantVid === true){
+        buildVideoLink();
+    } else {
+        videoSec = '';
+        getCredits()
+    }
 }
 
  function buildInst(instAns){
@@ -279,16 +300,6 @@ async function buildVideoLink(){
         return instNum++
     }
 };
-
-async function wantVideo(){
-    const vidAnswer = await inquirer.prompt({type: 'confirm', message: 'Would you like to add a video walkthrough?', name: 'wantVid'});
-    if(vidAnswer.wantVid === true){
-        buildVideoLink();
-    } else {
-        videoSec = '';
-        getCredits()
-    }
-}
 
 async function getNextInst(){
     for(let i=0; i<20; i++){
@@ -311,50 +322,47 @@ async function getNextInst(){
 }
 
 async function getInst(){
-    const answer = await inquirer.prompt ({type: 'input', message: 'We will now collect the instructions to use your program. \n This will return an ordered list. Press enter to begin.', name: 'useInst1'})
-    if (answer.useInst1 === ''){
+    const answer = await inquirer.prompt ({type: 'input', message: 'We will now collect the instructions to use your program. \n This will return an ordered list. Press enter to begin.', name: 'useInst1'}).then(ans =>{
         inquirer.prompt(instQuestions).then(instAns => {
             buildInst(instAns);
             if (instAns.wantNextInst === true){
                 getNextInst();
             } else {
+                funct.displayInst(instructions, instLIs);
+                console.log(instLIs);
+                instForUse = instLIs.join('');
+                console.log(instForUse);
                 wantVideo();
                 return}
         });
-    }
+    })
 }
 
 function startAsking(){
     inquirer
         .prompt(questions).then(ans => {
-        // console.log(ans);
-        function needProgs(){
-            if (ans.progNeeded === true){
+        // console.log(ans.progNeeded, ans.neededAssets)
+        if(ans.progNeeded !== false){
+            // console.log(ans.progNeeded)
             funct.generateList(ans.progNeeded.items, neededProgs);
             neededProgs = neededProgs.join('');
-        // console.log(neededProgs)
-            } else {return}
-        }
-        function needAsset(){
-            if (ans.neededAssets === true){
+            console.log(neededProgs)
+        } else {neededProgs = 'none'}
+        
+        if(ans.neededAssets !== false){
+            // console.log(ans.neededAssets.items)
             funct.generateList(ans.neededAssets.items, assetsNeeded);
             assetsNeeded = assetsNeeded.join('');
-            } else {return};
-        }
-
-        needProgs();
-        needAsset();
+            console.log(assetsNeeded)
+        } else {assetsNeeded = 'none'}
 
         answer = ans;
         title = ans.title;
         desc = ans.desc;
         problem = ans.problem;
-
         getInst()
     })
 }
-
-
 
  startAsking()
 
