@@ -2,7 +2,7 @@
 
 readme
     
-readme
+readm
 
 ## Table of Contents
 * [Installation](#installation)
@@ -17,7 +17,7 @@ readme
 <ul>none</ul>
 
 ## Instructions for Use
-<ol><li>step one</li><li>step two</li></ol>
+<ol><li>step one</li></ol>
 
 
 
