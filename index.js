@@ -10,6 +10,10 @@ let title;
 let desc;
 let problem;
 let instForUse;
+let videoSec;
+let creditSec = `## Credits \n`;
+let credits = [];
+let license;
 
 let instNum = 0;
 const instructions = [];
@@ -36,7 +40,7 @@ const questions = [
     //install
     {
         type: 'confirm',
-        message: 'Are there additional supporting programs (e.g. npm dependencies) that the user needs to have installed to run your program?',
+        message: 'Are there additional supporting programs (e.g. npm dependencies) \n that the user needs to have installed to run your program?',
         name:'progNeeded',
     },
     {
@@ -117,6 +121,42 @@ const instQuestions = [{
     name: 'wantNextInst',
 }];
 
+const videoQuestions = [{
+    type: 'input',
+    message: 'Please add video link:',
+    name: 'videoLink'
+}]
+
+const creditsQuestions = [{
+        type: 'list',
+        message: 'Was it a collaborator or a resource?',
+        choices: ['collaborator', 'resource / tutorial'],
+        name: 'credit.type',
+        // when(creditAns){
+        //     return (creditAns.credit === undefined) || (creditAns.credit.additional !== false);
+        // }
+    },
+    {
+        type: 'input',
+        message: 'Please provide the name:',
+        name: 'credit.name'
+    },
+    {
+        type: 'input',
+        message: 'Please provide the link:',
+        name: 'credit.link'
+    },
+    {
+        type: 'input',
+        message: 'What did they do / what did you use from the resource?',
+        name: 'credit.cont'
+    },
+    {
+        type: 'confirm',
+        message: 'Do you want to give credit to anyone / anything else?',
+        name: 'credit.additional'
+}]
+
 const writeFile = () => {
     const writeREADME = 
 `# ${title}
@@ -140,18 +180,13 @@ ${problem}
 ## Instructions for Use
 <ol>${instForUse}</ol>
 
+${videoSec}
 
-    - Here's a screenshot(s) of the program: [${ssAltText}](${ssLink})
-
-    - Here's a video overview of how to use the app: [${title}](${videoLink})
-
-## Credits
-- @[${aeName}](${aeLink}):
-    - ${aeCont}
-
+${creditSec}
+${credits}
 
 ## License
-The files in this repository are covered by the ${license} license.`
+${license}`
 
     fs.writeFile('README.md', writeREADME, err => {
         if (err) {
@@ -159,6 +194,76 @@ The files in this repository are covered by the ${license} license.`
         }
     });
  }
+
+async function wantLicense(){
+    await inquirer.prompt({type:'list', message: 'Which license would you like to add?', choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'], name: 'license'})
+    .then(ans=>{
+        function buildLicense(text, url){
+            license = 
+`The files in this repository are covered by the [${text}](${url}) license.`
+        }
+        if (ans.license === 'GNU AGPLv3'){
+            buildLicense('GNU AGPLv3', 'https://choosealicense.com/licenses/agpl-3.0/');
+        } else if (ans.license === 'GNU GPLv3'){
+            buildLicense('GNU GPLv3', 'https://choosealicense.com/licenses/gpl-3.0/');
+        } else if (ans.license === 'GNU LGPLv3'){
+            buildLicense('GNU LGPLv3', 'https://choosealicense.com/licenses/lgpl-3.0/');
+        } else if (ans.license === 'Mozilla Public License 2.0'){
+            buildLicense('Mozilla Public License 2.0', 'https://choosealicense.com/licenses/mpl-2.0/');
+        } else if (ans.license === 'Apache License 2.0'){
+            buildLicense('Apache License 2.0', 'https://choosealicense.com/licenses/apache-2.0/');
+        } else if (ans.license === 'MIT License'){
+            buildLicense('MIT License', 'https://choosealicense.com/licenses/mit/');
+        } else if (ans.license === 'Boost Software License 1.0'){
+            buildLicense('Boost Software License 1.0', 'https://choosealicense.com/licenses/bsl-1.0/');
+        } else {
+            buildLicense('The Unlicense', 'https://choosealicense.com/licenses/unlicense/');
+        } 
+    })
+    writeFile();
+}
+
+async function getCredits(){
+    const creditAnswer = await inquirer.prompt({type: 'confirm', message: 'Did you work with anyone else or use additional \n resources in this project?', name: 'credit'});
+    if(creditAnswer.credit === true){
+        let entries = 1;
+        inquirer.prompt(creditsQuestions).then(ans=>{
+            funct.buildCredit(ans, credits)
+            async function getNextCredit(){
+                let wantAnother;
+                for(let i=0; i<10; i++){
+                    console.log(`You have entered ${entries} credits.`);
+                    entries++;
+                    await inquirer.prompt(creditsQuestions).then(newAns => {
+                        wantAnother = newAns.credit.additional;
+                        funct.buildCredit(newAns, credits);
+                    })
+                    if (wantAnother === false){
+                        credits = credits.join('');
+                        wantLicense();
+                        console.log(credits)
+                        return
+                    }
+                } 
+            }
+            if(ans.credit.additional === true){
+                getNextCredit();
+            }else {wantLicense()}
+        })
+    } else {
+        creditSec = '';
+        credits = '';
+        wantLicense()}
+    
+}
+
+async function buildVideoLink(){
+    await inquirer.prompt(videoQuestions).then(ans =>{
+    videoSec = `Here is a [video walkthrough](${ans.videoLink}).`
+    });
+    console.log(videoSec);
+    getCredits();
+}
 
  function buildInst(instAns){
     if (instAns.wantSS === false){
@@ -175,6 +280,16 @@ The files in this repository are covered by the ${license} license.`
     }
 };
 
+async function wantVideo(){
+    const vidAnswer = await inquirer.prompt({type: 'confirm', message: 'Would you like to add a video walkthrough?', name: 'wantVid'});
+    if(vidAnswer.wantVid === true){
+        buildVideoLink();
+    } else {
+        videoSec = '';
+        getCredits()
+    }
+}
+
 async function getNextInst(){
     for(let i=0; i<20; i++){
         let wantAnother;
@@ -182,27 +297,29 @@ async function getNextInst(){
         await inquirer.prompt(instQuestions).then(newInstAns => {
             wantAnother = newInstAns.wantNextInst
             buildInst(newInstAns);
-            // if (newInstAns.wantNextInst===true)(getNextInst());
         })
         if (wantAnother===false){
             funct.displayInst(instructions, instLIs);
             console.log(instLIs);
             instForUse = instLIs.join('');
             console.log(instForUse);
-            writeFile();
+            wantVideo();
+            // writeFile();
             break
         };
     }
 }
 
 async function getInst(){
-    const answer = await inquirer.prompt ({type: 'input', message: 'We will now collect the instructions to use your program. This will return an ordered list. Press enter to begin.', name: 'useInst1'})
+    const answer = await inquirer.prompt ({type: 'input', message: 'We will now collect the instructions to use your program. \n This will return an ordered list. Press enter to begin.', name: 'useInst1'})
     if (answer.useInst1 === ''){
         inquirer.prompt(instQuestions).then(instAns => {
             buildInst(instAns);
             if (instAns.wantNextInst === true){
                 getNextInst();
-            } else {return}
+            } else {
+                wantVideo();
+                return}
         });
     }
 }
@@ -211,13 +328,22 @@ function startAsking(){
     inquirer
         .prompt(questions).then(ans => {
         // console.log(ans);
-
-        funct.generateList(ans.progNeeded.items, neededProgs);
-        neededProgs = neededProgs.join('');
+        function needProgs(){
+            if (ans.progNeeded === true){
+            funct.generateList(ans.progNeeded.items, neededProgs);
+            neededProgs = neededProgs.join('');
         // console.log(neededProgs)
+            } else {return}
+        }
+        function needAsset(){
+            if (ans.neededAssets === true){
+            funct.generateList(ans.neededAssets.items, assetsNeeded);
+            assetsNeeded = assetsNeeded.join('');
+            } else {return};
+        }
 
-        funct.generateList(ans.neededAssets.items, assetsNeeded);
-        assetsNeeded = assetsNeeded.join('');
+        needProgs();
+        needAsset();
 
         answer = ans;
         title = ans.title;

@@ -1,5 +1,7 @@
 // const index = require('./index');
 
+const inquirer = require("inquirer");
+
 function generateList(ans, arr){
     for(let i=0; i<ans.length; i++){
         let listItem = ans[i].trim();
@@ -24,6 +26,21 @@ const InstructionWImg = function(num, str, Bool, how, src, alt, title){
     this.src = src;
     this.alt = alt;
     this.title = title;
+}
+
+function buildCredit(ans, toArr){
+    let credit = ans.credit
+    if(credit.type === 'collaborator'){
+        const newPersCredit = `
+- [@${credit.name}](${credit.link}): \n
+  - ${credit.cont}\n`
+        toArr.push(newPersCredit);
+    } else {
+        const newTechCredit = `
+- [${credit.name}](${credit.link})\n
+  -${credit.cont}\n`;
+        toArr.push(newTechCredit);
+    }
 }
 
 function buildImage(alt, src, title){
@@ -53,6 +70,7 @@ module.exports = {
     generateList,
     InstructionNoImg,
     InstructionWImg,
+    buildCredit,
     buildImage,
     displayInst
 };
