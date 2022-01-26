@@ -12,12 +12,12 @@ readme
     
 ## Installation
 1. This program requires the following programs be installed:
-<ul><li>one</li><li>two</li></ul>
+<ul>none</ul>
 2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:
-<ul><li>two</li><li>one</li></ul>
+<ul>none</ul>
 
 ## Instructions for Use
-<ol><li></li><li>two<a href="./assets/images/avatar_nile.png">Me</a></li></ol>
+<ol>undefined</ol>
 
 
 
