@@ -17,7 +17,7 @@ readme
 <ul><li>two</li><li>one</li></ul>
 
 ## Instructions for Use
-<ol><li>step one's nice.</li><li>step two's nicer.</li><img src="./assets/images/avatar_nile.png" alt="me" title="me" width="200px"><li><a href="./assets/images/avatar_nile.png">step three's the best one.</a></li></ol>
+<ol><li></li><li>two<a href="./assets/images/avatar_nile.png">Me</a></li></ol>
 
 
 
