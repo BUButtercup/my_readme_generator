@@ -19,7 +19,8 @@ It helps the user do stuff.
 ## Instructions for Use
 <ol><li>This step is the first one.</li><li>Step two is a fun one.</li><img src="./assets/images/avatar_nile.png" alt="my avatar" title="my avatar" width="200px"><li>Step three is the best one.</li></ol>
 
-Here is a [video walkthrough]().
+Here is a [video walkthrough](https://drive.google.com/file/d/1sjyWGV4-m1sxlEh5_PL5DjmNXSEW6Rys/view?usp=sharing![image](https://user-images.githubusercontent.com/95940864/151276486-a5cbd68e-33f5-41cb-8b37-6fa11fe148a7.png)
+).
 
 ## Credits 
 
