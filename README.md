@@ -1,6 +1,6 @@
 # README.md Generator
 
-This program accepts user input about their repository and generates a basic README.md file formatted in <a href=”https://github.github.com/gfm/”>GitHub Flavored Markdown</a> for them to add to their repos. The sections covered include: <ul><li>Title</li><li>Introductory section that covers: </li><ul><li>Description of the program</li><li>Problem the program solves</li></ul><li>Installation instructions</li><li>Instructions for Use</li><li>Credits</li><li>License
+This program accepts user input about their repository and generates a basic README.md file formatted in [GitHub Flavored Markdown](https://github.github.com/gfm/) for them to add to their repos. The sections covered include: <ul><li>Title</li><li>Introductory section that covers: </li><ul><li>Description of the program</li><li>Problem the program solves</li></ul><li>Installation instructions</li><li>Instructions for Use</li><li>Credits</li><li>License
     
 This program provides a basic interactive template for creating a README.md file, eliminating the need to continually start over from scratch whenever you need to create one. <strong>This README.md was generated using this program</strong>
 
