@@ -35,7 +35,7 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'What problem does your program solve for the user?',
+        message: 'What problem does your program solve for the user? What did you \n learn from making it? Where do you want to take it in the future?',
         name: 'problem'
     },
 
@@ -124,6 +124,7 @@ const instQuestions = [{
     type: 'confirm',
     message: `Would you like to enter another step?`,
     name: 'wantNextInst',
+    default: false
 }];
 
 const videoQuestions = [{
@@ -136,10 +137,7 @@ const creditsQuestions = [{
         type: 'list',
         message: 'Was it a collaborator or a resource?',
         choices: ['collaborator', 'resource / tutorial'],
-        name: 'credit.type',
-        // when(creditAns){
-        //     return (creditAns.credit === undefined) || (creditAns.credit.additional !== false);
-        // }
+        name: 'credit.type'
     },
     {
         type: 'input',
@@ -178,10 +176,10 @@ ${creditLT}
 * [License](#license)
     
 ## Installation
-1. This program requires the following programs be installed:
-<ul>${neededProgs}</ul>
-2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:
-<ul>${assetsNeeded}</ul>
+1. This program requires the following programs be installed:<ul>${neededProgs}</ul>
+
+2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:<ul>${assetsNeeded}</ul>
+
 
 ## Instructions for Use
 <ol>${instForUse}</ol>
@@ -206,7 +204,7 @@ async function wantLicense(){
     .then(ans=>{
         function buildLicense(text, url){
             license = 
-`The files in this repository are covered by the [${text}](${url}) license.`
+`The files in this repository are covered by the [${text}](${url}).`
         }
         if (ans.license === 'GNU AGPLv3'){
             buildLicense('GNU AGPLv3', 'https://choosealicense.com/licenses/agpl-3.0/');
@@ -230,7 +228,7 @@ async function wantLicense(){
 }
 
 async function getCredits(){
-    const creditAnswer = await inquirer.prompt({type: 'confirm', message: 'Did you work with anyone else or use additional \n resources in this project?', name: 'credit'});
+    const creditAnswer = await inquirer.prompt({type: 'confirm', message: 'Did you work with anyone else or use additional \n resources in this project?', name: 'credit', default: false});
     if(creditAnswer.credit === true){
         let entries = 1;
         inquirer.prompt(creditsQuestions).then(ans=>{
@@ -247,7 +245,6 @@ async function getCredits(){
                     if (wantAnother === false){
                         credits = credits.join('');
                         wantLicense();
-                        console.log(credits)
                         return
                     }
                 } 
@@ -272,12 +269,11 @@ async function buildVideoLink(){
         }
         videoSec = `Here is a [video walkthrough](${ans.videoLink}).`
     });
-    console.log(videoSec);
     getCredits();
 }
 
 async function wantVideo(){
-    const vidAnswer = await inquirer.prompt({type: 'confirm', message: 'Would you like to add a video walkthrough?', name: 'wantVid'});
+    const vidAnswer = await inquirer.prompt({type: 'confirm', message: 'Would you like to add a video walkthrough?', name: 'wantVid', default: false});
     if(vidAnswer.wantVid === true){
         buildVideoLink();
     } else {
@@ -289,13 +285,11 @@ async function wantVideo(){
  function buildInst(instAns){
     if (instAns.wantSS === false){
         const newInst  = new funct.InstructionNoImg(instNum, instAns.nextInst, instAns.wantSS)
-        console.log(newInst);
         instructions.push(newInst);
         return instNum++
     }
     if (instAns.wantSS === true){
         const newInst  = new funct.InstructionWImg(instNum, instAns.nextInst, instAns.wantSS, instAns.image.how, instAns.image.src, instAns.image.alt, instAns.image.imgTitle);
-        console.log(newInst);
         instructions.push(newInst);
         return instNum++
     }
@@ -311,27 +305,22 @@ async function getNextInst(){
         })
         if (wantAnother===false){
             funct.displayInst(instructions, instLIs);
-            console.log(instLIs);
             instForUse = instLIs.join('');
-            console.log(instForUse);
             wantVideo();
-            // writeFile();
             break
         };
     }
 }
 
 async function getInst(){
-    const answer = await inquirer.prompt ({type: 'input', message: 'We will now collect the instructions to use your program. \n This will return an ordered list. Press enter to begin.', name: 'useInst1'}).then(ans =>{
+    await inquirer.prompt ({type: 'input', message: 'We will now collect the instructions to use your program. \n This will return an ordered list. Press enter to begin.', name: 'useInst1'}).then(ans =>{
         inquirer.prompt(instQuestions).then(instAns => {
             buildInst(instAns);
             if (instAns.wantNextInst === true){
                 getNextInst();
             } else {
                 funct.displayInst(instructions, instLIs);
-                console.log(instLIs);
                 instForUse = instLIs.join('');
-                console.log(instForUse);
                 wantVideo();
                 return}
         });
@@ -341,19 +330,14 @@ async function getInst(){
 function startAsking(){
     inquirer
         .prompt(questions).then(ans => {
-        // console.log(ans.progNeeded, ans.neededAssets)
         if(ans.progNeeded !== false){
-            // console.log(ans.progNeeded)
             funct.generateList(ans.progNeeded.items, neededProgs);
             neededProgs = neededProgs.join('');
-            console.log(neededProgs)
         } else {neededProgs = 'none'}
         
         if(ans.neededAssets !== false){
-            // console.log(ans.neededAssets.items)
             funct.generateList(ans.neededAssets.items, assetsNeeded);
             assetsNeeded = assetsNeeded.join('');
-            console.log(assetsNeeded)
         } else {assetsNeeded = 'none'}
 
         answer = ans;
