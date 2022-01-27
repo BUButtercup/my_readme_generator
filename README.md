@@ -1,8 +1,8 @@
 # My Program
 
-Does Stuff
+Does things
     
-It helps the user do stuff.
+It helps people do things. In the future, I'd like it to help people do stuff.
 
 ## Table of Contents
 * [Installation](#installation)
@@ -11,23 +11,26 @@ It helps the user do stuff.
 * [License](#license)
     
 ## Installation
-1. This program requires the following programs be installed:<ul><li>this thing</li><li>that thing</li></ul>
+1. This program requires the following programs be installed:<ul><li>this</li><li>that</li><li>the other</li></ul>
 
-2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:<ul><li>that thing</li><li>the other one</li></ul>
+2. Before running this program, please have the following information on hand and / or loaded into your 'asset/images' folder:<ul><li>one thing</li><li>two things</li><li>three things</li></ul>
 
 
 ## Instructions for Use
-<ol><li>This step is the first one.</li><li>Step two is a fun one.</li><img src="./assets/images/avatar_nile.png" alt="my avatar" title="my avatar" width="200px"><li>Step three is the best one.</li></ol>
+<ol><li>step one</li><li>step two</li><img src="./assets/images/avatar_nile.png" alt="alt text" title="title text" width="200px"></ol>
 
-Here is a [video walkthrough](https://drive.google.com/file/d/1sjyWGV4-m1sxlEh5_PL5DjmNXSEW6Rys/view?usp=sharing![image](https://user-images.githubusercontent.com/95940864/151276486-a5cbd68e-33f5-41cb-8b37-6fa11fe148a7.png)
-).
+Here is a [video walkthrough](https://drive.google.com/file/d/1sjyWGV4-m1sxlEh5_PL5DjmNXSEW6Rys/view?usp=sharing).
 
 ## Credits 
 
 
-- [@BUButtercup](fakelink.fake): 
+- [@BUButtercup](https://github.com/BUButtercup): 
 
-  - helped write the code
+  - wrote code
+
+- [Awesome Tutorial](www.beingawesome.fake)
+
+  -was awesome
 
 
 ## License
