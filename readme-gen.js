@@ -192,7 +192,7 @@ ${credits}
 ## License
 ${license}`
 
-    fs.writeFile('README.md', writeREADME, err => {
+    fs.writeFile('${title}README.md', writeREADME, err => {
         if (err) {
             throw err;
         }
